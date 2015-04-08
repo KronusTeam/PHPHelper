@@ -204,4 +204,44 @@ if(!function_exists('resizeImage')){
 }
 }
 
+if(!function_exists('isImage')){
+	function isImage($filename){
+		$file_parts = pathinfo($filename);
+		
+		switch(strtolower($file_parts['extension']))
+		{
+			case "jpg":
+			case "png":
+			case "gif":
+			return TRUE;
+			break;
+
+			default:
+			return FALSE;
+			break;
+		}
+	}
+}
+
+if(!function_exists('isThumbail')){
+	function isThumbail($filename){
+		return (strpos($filename,'_thumb') !== FALSE)?TRUE:FALSE;
+	}
+}
+if(!function_exists('get_thumb_name')){
+	function get_thumb_name($filename){
+		$file_parts = pathinfo($filename);
+		
+		$filename	=	$file_parts['filename'];
+		$extension	=	$file_parts['extension'];
+		
+		return $filename.'_thumb.'.$extension;
+	}
+}
+if(!function_exists('get_nothumb_name')){
+	function get_nothumb_name($filename){
+		return str_replace('_thumb','',$filename);
+	}
+}
+
 /*Fin del archivo*/
