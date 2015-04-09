@@ -9,12 +9,21 @@ if(!function_exists('isValidIP')){
 }
 
 if(!function_exists('isDevelopment')){
-	function isDevelopment(){
+	function isDevelopment($productionName=null){
 		$serverName = $_SERVER['SERVER_NAME'];
-		if($serverName==="localhost" || isValidIP($serverName))
+		
+		if($productionName!=null && $productionName === $serverName){
+			define('ENVIRONMENT','production');
+			return false;	
+		}
+
+		if($serverName==="localhost" || isValidIP($serverName)){
+			define('ENVIRONMENT','development');
 			return true;
-		else
+		}else{
+			define('ENVIRONMENT','production');
 			return false;
+		}
 	}
 }
 
@@ -50,7 +59,7 @@ if(!function_exists('removeComments')){
 		$text = str_replace('&lt;!--','',$text);
 		$text = str_replace('-->','',$text);
 		$text = str_replace('--&gt;','',$text);
-		$text 	=preg_replace('/\n{2,}/',''.PHP_EOL,$text);
+		$text = preg_replace('/\n{2,}/',''.PHP_EOL,$text);
 		return $text;
 	}
 }
@@ -122,7 +131,7 @@ if(!function_exists('cleanAll')){
 		$texto = str_replace("–","",$texto);
 		$texto = str_replace("—","",$texto);
 		
-		$texto= preg_replace("/[^\w ÀÁÂÃÄÅĀĄĂÆÇĆČĈĊĎĐÈÉÊËĒĘĚĔĖĜĞĠĢĤĦÌÍÎÏĪĨĬĮİĲĴĶŁĽĹĻĿÑŃŇŅŊÒÓÔÕÖØŌŐŎŒŔŘŖŚŠŞŜȘŤŢŦȚÙÚÛÜŪŮŰŬŨŲŴÝŶŸŹŽŻàáâãäåæçèéêëìíîïñòóôõöøùúûüýÿœšß]/","",$texto);
+		$texto = preg_replace("/[^\w ÀÁÂÃÄÅĀĄĂÆÇĆČĈĊĎĐÈÉÊËĒĘĚĔĖĜĞĠĢĤĦÌÍÎÏĪĨĬĮİĲĴĶŁĽĹĻĿÑŃŇŅŊÒÓÔÕÖØŌŐŎŒŔŘŖŚŠŞŜȘŤŢŦȚÙÚÛÜŪŮŰŬŨŲŴÝŶŸŹŽŻàáâãäåæçèéêëìíîïñòóôõöøùúûüýÿœšß]/","",$texto);
 		$texto = str_replace(" ","",$texto);
 		return $texto;
 	}
@@ -133,75 +142,75 @@ if(!function_exists('setDateSpanish')){
 		return date("d-m-Y",strtotime($EnglishDate));
 	}
 }
+
 if(!function_exists('resizeImage')){
-	function resizeImage($ruta1,$ruta2,$ancho,$alto) 
-	{ 
-    # se obtene la dimension y tipo de imagen 
-		$datos=getimagesize ($ruta1); 
+	function resizeImage($ruta1,$ruta2,$ancho,$alto){ 
+    	# se obtene la dimension y tipo de imagen 
+		$datos	=	getimagesize($ruta1); 
 
-    $ancho_orig = $datos[0]; # Anchura de la imagen original 
-    $alto_orig = $datos[1];    # Altura de la imagen original 
-    $tipo = $datos[2]; 
+	    $ancho_orig	= $datos[0]; # Anchura de la imagen original 
+	    $alto_orig	= $datos[1]; # Altura de la imagen original 
+	    $tipo 		= $datos[2]; 
 
-    if ($tipo==1){ # GIF 
-    	if (function_exists("imagecreatefromgif")) 
-    		$img = imagecreatefromgif($ruta1); 
-    	else 
-    		return false; 
-    } 
-    else if ($tipo==2){ # JPG 
-    	if (function_exists("imagecreatefromjpeg")) 
-    		$img = imagecreatefromjpeg($ruta1); 
-    	else 
-    		return false; 
-    } 
-    else if ($tipo==3){ # PNG 
-    	if (function_exists("imagecreatefrompng")) 
-    		$img = imagecreatefrompng($ruta1); 
-    	else 
-    		return false; 
-    } 
+	    if ($tipo==1){ # GIF 
+	    	if (function_exists("imagecreatefromgif")) 
+	    		$img = imagecreatefromgif($ruta1); 
+	    	else 
+	    		return false; 
+	    } 
+	    else if ($tipo==2){ # JPG 
+	    	if (function_exists("imagecreatefromjpeg")) 
+	    		$img = imagecreatefromjpeg($ruta1); 
+	    	else 
+	    		return false; 
+	    } 
+	    else if ($tipo==3){ # PNG 
+	    	if (function_exists("imagecreatefrompng")) 
+	    		$img = imagecreatefrompng($ruta1); 
+	    	else 
+	    		return false; 
+	    } 
 
-    # Se calculan las nuevas dimensiones de la imagen 
-    if ($ancho_orig>$alto_orig) 
-    { 
-    	$ancho_dest=$ancho; 
-    	$alto_dest=($ancho_dest/$ancho_orig)*$alto_orig; 
-    } 
-    else 
-    { 
-    	$alto_dest=$alto; 
-    	$ancho_dest=($alto_dest/$alto_orig)*$ancho_orig; 
-    } 
+	    # Se calculan las nuevas dimensiones de la imagen 
+	    if ($ancho_orig>$alto_orig) 
+	    { 
+	    	$ancho_dest=$ancho; 
+	    	$alto_dest=($ancho_dest/$ancho_orig)*$alto_orig; 
+	    } 
+	    else 
+	    { 
+	    	$alto_dest=$alto; 
+	    	$ancho_dest=($alto_dest/$alto_orig)*$ancho_orig; 
+	    } 
 
-    // imagecreatetruecolor, solo estan en G.D. 2.0.1 con PHP 4.0.6+ 
-    $img2=@imagecreatetruecolor($ancho_dest,$alto_dest) or $img2=imagecreate($ancho_dest,$alto_dest); 
+	    // imagecreatetruecolor, solo estan en G.D. 2.0.1 con PHP 4.0.6+ 
+	    $img2=@imagecreatetruecolor($ancho_dest,$alto_dest) or $img2=imagecreate($ancho_dest,$alto_dest); 
 
-    // Redimensionar 
-    // imagecopyresampled, solo estan en G.D. 2.0.1 con PHP 4.0.6+ 
-    @imagecopyresampled($img2,$img,0,0,0,0,$ancho_dest,$alto_dest,$ancho_orig,$alto_orig) or imagecopyresized($img2,$img,0,0,0,0,$ancho_dest,$alto_dest,$ancho_orig,$alto_orig); 
+	    // Redimensionar 
+	    // imagecopyresampled, solo estan en G.D. 2.0.1 con PHP 4.0.6+ 
+	    @imagecopyresampled($img2,$img,0,0,0,0,$ancho_dest,$alto_dest,$ancho_orig,$alto_orig) or imagecopyresized($img2,$img,0,0,0,0,$ancho_dest,$alto_dest,$ancho_orig,$alto_orig); 
 
-    // Crear fichero nuevo, según extensión. 
-    if ($tipo==1) // GIF 
-    if (function_exists("imagegif")) 
-    	imagegif($img2, $ruta2); 
-    else 
-    	return false; 
+	    // Crear fichero nuevo, según extensión. 
+	    if ($tipo==1) // GIF 
+	    if (function_exists("imagegif")) 
+	    	imagegif($img2, $ruta2); 
+	    else 
+	    	return false; 
 
-    if ($tipo==2) // JPG 
-    if (function_exists("imagejpeg")) 
-    	imagejpeg($img2, $ruta2); 
-    else 
-    	return false; 
+	    if ($tipo==2) // JPG 
+	    if (function_exists("imagejpeg")) 
+	    	imagejpeg($img2, $ruta2); 
+	    else 
+	    	return false; 
 
-    if ($tipo==3)  // PNG 
-    if (function_exists("imagepng")) 
-    	imagepng($img2, $ruta2); 
-    else 
-    	return false; 
+	    if ($tipo==3)  // PNG 
+	    if (function_exists("imagepng")) 
+	    	imagepng($img2, $ruta2); 
+	    else 
+	    	return false; 
 
-    return true; 
-}
+	    return true; 
+	}
 }
 
 if(!function_exists('isImage')){
@@ -228,6 +237,7 @@ if(!function_exists('isThumbail')){
 		return (strpos($filename,'_thumb') !== FALSE)?TRUE:FALSE;
 	}
 }
+
 if(!function_exists('get_thumb_name')){
 	function get_thumb_name($filename){
 		$file_parts = pathinfo($filename);
@@ -238,6 +248,7 @@ if(!function_exists('get_thumb_name')){
 		return $filename.'_thumb.'.$extension;
 	}
 }
+
 if(!function_exists('get_nothumb_name')){
 	function get_nothumb_name($filename){
 		return str_replace('_thumb','',$filename);
