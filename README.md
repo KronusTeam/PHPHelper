@@ -66,10 +66,10 @@ Verifica el ambiente en el cual se encuentra, desarrollo o producción. Basandos
 	}
  ?>
 ```
-Utilizando parametro 'productionName'
+Utilizando parámetro 'productionName'
 ```
 <?php 
-	$productionName = 'misitio';//no incluye extension del dominio (.com|.cl|etc) o en su defecto dirección ip
+	$productionName = 'misitio';//no incluye extensión del dominio (.com|.cl|etc) o en su defecto dirección ip
 	if(isDevelopment($productionName)){
 		echo "estas en el ambiente de ".ENVIRONMENT;
 	}else{
@@ -97,7 +97,7 @@ Corta un texto hasta un largo determinado (por defecto 25 caracteres) añadiendo
 	//Salida = Lorem ipsum dolor sit ame...
  ?>
 ```
-Utilizando parametro 'long'
+Utilizando parámetro 'long'
 ```
 <?php 
 	$textoOriginal	=	"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.";
@@ -107,3 +107,217 @@ Utilizando parametro 'long'
  ?>
 ```
 ***
+### removeComments
+Remueve los comentarios html de un texto, retonando el texto sin los comentarios.
+
+#### removeComments - Parámetros
++ text - string - corresponde al texto que desea limpiar.
+
+#### removeComments - return
++ string - texto limpio.
+
+#### Utilización
+```
+<?php 
+	$textoOriginal	=	"<!--Lorem ipsum dolor sit amet,--> consectetuer adipiscing elit. Aenean commodo ligula eget dolor.";
+	$textoLimpio	=	removeComments($textoOriginal);
+	echo $textoLimpio;
+	//Salida = Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+?>
+```
+***
+### cleanUTF8
+limpia los caracteres UTF-8 retonando la cadena sin caracteres UTF-8
+
+#### cleanUTF8 - Parámetros
++ text - string - corresponde al texto que desea limpiar.
+
+#### cleanUTF8 - return
++ string - texto limpio.
+
+#### Utilización
+```
+<?php 
+	$textoOriginal	=	"Los procesos ágiles promueven el desarrollo sostenible. Añadiendo un ritmo constante de mejora.";
+	$textoLimpio	=	cleanUTF8($textoOriginal);
+	echo $textoLimpio;
+	//Salida = Los procesos agiles promueven el desarrollo sostenible. Anadiendo un ritmo constante de mejora.
+?>
+```
+***
+### setDateSpanish
+Transforma la fecha de formato ingles (Y-m-d) a formato español (d-m-Y);
+
+#### setDateSpanish - Parámetros
++ EnglishDate - string - corresponde a la fecha a transformar.
++ separator (opcional) - string - corresponde al separador de fecha por defecto es - .
+
+#### setDateSpanish - return
++ string - fecha en español.
+
+#### Utilización
+```
+<?php 
+	$fechaIngles	= "2015-11-20";
+	$fechaEspanol	=	setDateSpanish($fechaIngles);
+	echo $fechaEspanol;
+	//Salida = 20-11-2015
+?>
+```
+Utilizando parámetro separator
+```
+<?php 
+	$fechaIngles	= "2015-11-20";
+	$fechaEspanol	=	setDateSpanish($fechaIngles,"/");
+	echo $fechaEspanol;
+	//Salida = 20/11/2015
+?>
+```
+***
+### resizeImage
+Redimensiona una imagen a las medidas indicadas
+
+#### resizeImage - Parámetros
++ ruta1 - string - corresponde a la ruta y nombre de la imagen a redimensionar.
++ ruta2 - string - Corresponde a la ruta y nombre de destino de la neuva imagen.
++ ancho - int - Corresponde al ancho de la nueva imagen en pixeles.
++ alto  - int - corresponde al alto de la nueva imagen en pixeles.
+
+#### resizeImage - return
++ boolean
+
+#### Utilización
+```
+<?php 
+	$imgOriginal	= "../img/nuestrafoto.png";
+	$imgModificada	= "../img/nuestrafoto_thumb.png";
+	if(resizeImage($imgOriginal,$imgModificada,150,150)){
+		echo "Imagen redimensionada";
+	}else{
+		echo "Error al redimensionar";
+	}
+	
+?>
+```
+***
+### isImage
+Verifica si la extensión de un  archivo corresponde a una imagen.
+
+#### isImage - Parámetros
++ filename - string - Nombre del archivo.
+
+#### isImage - return
++ boolean
+
+#### Utilización
+```
+<?php 
+	$archivo1	= "nuestrafoto.png";
+	$archivo2	= "nuestrotexto.txt";
+	if(isImage($archivo2)){
+		echo "Es una imagen!";
+	}else{
+		echo "No es una imagen :(";
+	}
+	//salida : Es una imagen!
+	if(isImage($archivo1)){
+		echo "Es una imagen!";
+	}else{
+		echo "No es una imagen :(";
+	}
+	//salida : No es una imagen :(
+?>
+```
+***
+### isThumbnail
+Verifica si la extensión de un  archivo corresponde a una imagen.
+
+#### isThumbnail - Parámetros
++ filename - string - Nombre del archivo.
++ thumbExt (opcional) - string - sufijo utilizado para los thumbnail. Por defecto _thumb.
+
+#### isThumbnail - return
++ boolean
+
+#### Utilización
+```
+<?php 
+	$archivo1	= "nuestrafoto.png";
+	$archivo2	= "nuestrafoto_thumb.png";
+	if(isThumbnail($archivo1)){
+		echo "Es un Thumbnail!";
+	}else{
+		echo "No es un Thumbnail :(";
+	}
+	//salida : No es un Thumbnail :(
+
+	if(isThumbnail($archivo2)){
+		echo "Es un Thumbnail!";
+	}else{
+		echo "No es un Thumbnail :(";
+	}
+	//salida : Es un Thumbnail!
+?>
+```
+***
+### get_thumb_name
+Obtiene el nombre del thumbnail en base al nombre de la imagen original
+
+#### get_thumb_name - Parámetros
++ filename - string - Nombre del archivo.
++ thumbExt (opcional) - string - sufijo utilizado para los thumbnail. Por defecto _thumb.
+
+#### get_thumb_name - return
++ string - nombre del archivo thumbnail.
+
+#### Utilización
+```
+<?php 
+	$archivo1	= "nuestrafoto.png";
+	
+	$archivoThumb =	get_thumb_name($archivo1);
+	echo $archivoThumb;
+	//salida : nuestrafoto_thumb.png
+?>
+```
+Utilizando parámetro thumbExt
+```
+<?php 
+	$archivo1	= "nuestrafoto.png";
+
+	$archivoThumb =	get_thumb_name($archivo1,"_mini");
+	echo $archivoThumb;
+	//salida : nuestrafoto_mini.png
+?>
+```
+***
+### get_nothumb_name
+Obtiene el nombre del archivo original de un archivo thumbnail.
+
+#### get_nothumb_name - Parámetros
++ filename - string - Nombre del archivo.
++ thumbExt (opcional) - string - sufijo utilizado para los thumbnail. Por defecto _thumb.
+
+#### get_nothumb_name - return
++ string - nombre del archivo original.
+
+#### Utilización
+```
+<?php 
+	$archivo1	= "nuestrafoto_thumb.png";
+	
+	$archivoThumb =	get_nothumb_name($archivo1);
+	echo $archivoThumb;
+	//salida : nuestrafoto.png
+?>
+```
+Utilizando parámetro thumbExt
+```
+<?php 
+	$archivo1	= "nuestrafoto_mini.png";
+
+	$archivoThumb =	get_nothumb_name($archivo1,"_mini");
+	echo $archivoThumb;
+	//salida : nuestrafoto.png
+?>
+```

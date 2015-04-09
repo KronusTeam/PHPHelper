@@ -138,8 +138,8 @@ if(!function_exists('cleanAll')){
 }
 
 if(!function_exists('setDateSpanish')){
-	function setDateSpanish($EnglishDate){
-		return date("d-m-Y",strtotime($EnglishDate));
+	function setDateSpanish($EnglishDate,$separator="-"){
+		return date("d".$separator."m".$separator."Y",strtotime($EnglishDate));
 	}
 }
 
@@ -232,26 +232,26 @@ if(!function_exists('isImage')){
 	}
 }
 
-if(!function_exists('isThumbail')){
-	function isThumbail($filename){
-		return (strpos($filename,'_thumb') !== FALSE)?TRUE:FALSE;
+if(!function_exists('isThumbnail')){
+	function isThumbnail($filename,$thumbExt="_thumb"){
+		return (strpos($filename,$thumbExt) !== FALSE)?TRUE:FALSE;
 	}
 }
 
 if(!function_exists('get_thumb_name')){
-	function get_thumb_name($filename){
+	function get_thumb_name($filename,$thumbExt="_thumb"){
 		$file_parts = pathinfo($filename);
 		
 		$filename	=	$file_parts['filename'];
 		$extension	=	$file_parts['extension'];
 		
-		return $filename.'_thumb.'.$extension;
+		return $filename.$thumbExt.$extension;
 	}
 }
 
 if(!function_exists('get_nothumb_name')){
-	function get_nothumb_name($filename){
-		return str_replace('_thumb','',$filename);
+	function get_nothumb_name($filename,$thumbExt="_thumb"){
+		return str_replace($thumbExt,'',$filename);
 	}
 }
 
