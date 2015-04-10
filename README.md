@@ -149,7 +149,7 @@ limpia los caracteres UTF-8 retonando la cadena sin caracteres UTF-8
 Transforma la fecha de formato ingles (Y-m-d) a formato español (d-m-Y);
 
 #### setDateSpanish - Parámetros
-+ EnglishDate - string - corresponde a la fecha a transformar.
++ EnglishDate - date - corresponde a la fecha a transformar.
 + separator (opcional) - string - corresponde al separador de fecha por defecto es - .
 
 #### setDateSpanish - return
@@ -171,6 +171,83 @@ Utilizando parámetro separator
 	$fechaEspanol	=	setDateSpanish($fechaIngles,"/");
 	echo $fechaEspanol;
 	//Salida = 20/11/2015
+?>
+```
+***
+### getDay
+Obtiene el día de la semana de una fecha.
+
+#### getDay - Parámetros
++ date - date - corresponde a la fecha.
+
+#### getDay - return
++ string - día de la semana.
+
+#### Utilización
+```
+<?php 
+	$fecha	= "2015-04-10";
+	$dia	=	getDay($fecha);
+	echo $dia;
+	//Salida = Viernes
+?>
+```
+***
+### isValidDate
+Verifica si es una fecha Valida.
+
+#### isValidDate - Parámetros
++ date - date - corresponde a la fecha a validar.
+
+#### isValidDate - return
++ boolean
+
+#### Utilización
+```
+<?php 
+	$fecha	= "2015-04-10";
+	$dia	=	isValidDate($fecha);
+	echo $dia;
+?>
+```
+***
+### dateDiff
+Calcula los dias de diferencia entre 2 fechas.
+
+#### dateDiff - Parámetros
++ date1 - string(date) - corresponde a la fecha 1.
++ date2 - string(date) - corresponde a la fecha 2.
+
+#### dateDiff - return
++ int - dias de diferencia
+
+#### Utilización
+```
+<?php 
+	$fecha1	= "2015-11-20";
+	$fecha2	= "2015-11-14";
+	$diferencia	=	dateDiff($fecha1,$fecha2);
+	echo $diferencia;
+	//Salida : 6
+?>
+```
+***
+### numberToText
+Converte un número a texto.
+
+#### numberToText - Parámetros
++ number - string(int) - corresponde al número a convertir.
+
+#### numberToText - return
++ string - Número en palabras
+
+#### Utilización
+```
+<?php 
+	$numero	= "127.365";
+	$numeroPalabras	=	numberToText($numero);
+	echo $numeroPalabras;
+	//Salida : ciento veinti y siete mil trecientos sesenta y cinco
 ?>
 ```
 ***
@@ -319,5 +396,25 @@ Utilizando parámetro thumbExt
 	$archivoThumb =	get_nothumb_name($archivo1,"_mini");
 	echo $archivoThumb;
 	//salida : nuestrafoto.png
+?>
+```
+***
+### isValidEmail
+Obtiene el nombre del archivo original de un archivo thumbnail.
+
+#### isValidEmail - Parámetros
++ email - string - email a validar.
+
+#### isValidEmail - return
++ Boolean
+
+#### Utilización
+```
+<?php 
+	$email	= "hola@correo.cl";
+	
+	if(isValidEmail($email)){
+		echo "Es valido!";
+	}
 ?>
 ```
