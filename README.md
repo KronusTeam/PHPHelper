@@ -418,3 +418,107 @@ Obtiene el nombre del archivo original de un archivo thumbnail.
 	}
 ?>
 ```
+
+***
+### encrypt
+Cifra un string 
+
+#### encrypt - Parámetros
++ cadena - string - texto a cifrar.
++ clave - string - clave .
+
+#### encrypt - return
++ String 
+
+#### Utilización
+```
+<?php 
+	$cadena	= "Hola Mundo";
+	
+	echo encrypt($cadena, "miclave"));
+	
+?>
+```
+
+***
+### decrypt
+Descifra un string que fue cifrado con encrypt
+
+#### decrypt - Parámetros
++ cadena - string - texto a descifrar.
++ clave - string - clave utilizada en encrypt.
+
+#### decrypt - return
++ String 
+
+#### Utilización
+```
+<?php 
+	$cadena	= "rdzVxIyu69PR2A==";
+	
+	echo decrypt($cadena, "miclave"));
+	
+?>
+```
+
+***
+### encrypt_url
+Cifra un string para ser usado como parte de la URL
+
+#### encrypt_url - Parámetros
++ cadena - string - texto a descifrar.
++ clave - string - clave.
+
+#### encrypt_url - return
++ String 
+
+#### Utilización
+```
+<?php 
+	$cadena	= "Ññ áá";
+	
+	echo encrypt_url($cadena, "miclave"));
+	
+?>
+```
+
+
+***
+### decrypt_url
+Descifra un string que fue cifrado con encrypt_url
+
+#### decrypt_url - Parámetros
++ cadena - string - texto a descifrar.
++ clave - string - clave utilizada  en encrypt_url.
+
+#### decrypt_url - return
++ String 
+
+#### Utilización
+```
+<?php 
+	$cadena	= "KP4sFIwkFygO";
+	
+	echo decrypt_url($cadena, "miclave"));
+	
+?>
+```
+
+***
+### passGenerator
+Genera una clave aleatoria del largo especificado
+
+#### passGenerator - Parámetros
++ largo - int - largo de la clave.
+
+#### passGenerator - return
++ String 
+
+#### Utilización
+```
+<?php 
+
+	echo passGenerator(8);
+	
+?>
+```

@@ -480,7 +480,7 @@ if(!function_exists('decrypt_url')){
 if(!function_exists('passGenerator')){
 	function passGenerator($long){
 		$longitudPass=$long;
-		$cadena = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890{}-.,´+[]";
+		$cadena = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890{}-.,[]";
 		$longitudCadena=strlen($cadena);
 
 		$pass = "";

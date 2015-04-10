@@ -9,5 +9,7 @@ $arrayNames[] = array("name" =>"ñ");
 $arrayNames[] = array("name" =>"n");
 
 uasort($arrayNames,"uasortCallback");
-var_dump($arrayNames);
+//var_dump($arrayNames);
+
+echo passGenerator(9);
 /*fin del archivo*/
