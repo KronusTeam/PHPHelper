@@ -492,4 +492,18 @@ if(!function_exists('passGenerator')){
 		return $pass;
 	}
 }
+if (!function_exists('dates_diff')) {
+    function dates_diff($date1, $date2, $op = 'd'){
+        $datetime1 = new DateTime($date1);
+        $datetime2 = new DateTime($date2);
+
+        $interval = $datetime1->diff($datetime2);
+        if($op == 'd')
+            return $interval->d;
+        if($op == 'm')
+            return $interval->m;
+        if($op == 'y')
+            return $interval->y;
+    }
+}
 /*Fin del archivo*/
