@@ -506,4 +506,16 @@ if (!function_exists('dates_diff')) {
             return $interval->y;
     }
 }
+if (!function_exists('decrypt_') && function_exists('base64_decode') && function_exists('mcrypt_decrypt')) {
+    function decrypt_($string,$key)
+    {
+        return trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $key, base64_decode($string), MCRYPT_MODE_ECB, mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB), MCRYPT_RAND))); 
+    }
+}
+if (!function_exists('encrypt_') && function_exists('base64_encode') && function_exists('mcrypt_encrypt')) {
+    function encrypt_($string,$key)
+    {
+        return trim(base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, $string, MCRYPT_MODE_ECB, mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB), MCRYPT_RAND)))); 
+    }
+}
 /*Fin del archivo*/
